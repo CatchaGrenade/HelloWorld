@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Layout;
 import android.util.Log;
 import android.util.TypedValue;
@@ -15,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Chronometer;
+import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -22,7 +26,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
     };
     Button bt;
     RadioGroup rg;
+    Button btn_login;        //定义登录按钮
+    Button btn_exit;        //定义取消按钮
+    CheckBox checkBox1, checkBox2, checkBox3;   //定义复选框
+    int year,month,day;     //定义年，月，日
+    DatePicker datePicker;           //定义日期选择器
+    TimePicker timePicker;            //定义时间选择器
+    int hour,minute;                  //定义小时和分
+    Chronometer ch;          //定义计时器
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,34 +175,133 @@ public class MainActivity extends AppCompatActivity {
         //---------------end-----------------------
 
         //---------------start-----------------------
-        setContentView(R.layout.b_0005);
-        bt = (Button)findViewById(R.id.bt);
-        rg = (RadioGroup)findViewById(R.id.rg);
-        bt.setOnClickListener(new View.OnClickListener(){
-                                  @Override
-                                  public void onClick(View v){
-                                      for(int i = 0;i<rg.getChildCount();i++){
-                                          RadioButton radioButton = (RadioButton)rg.getChildAt(i);
-                                          if(radioButton.isChecked()){
-                                              if(radioButton.getText().equals("B:100")){
-                                                  Toast.makeText(MainActivity.this,"回答正确",Toast.LENGTH_LONG).show();
-                                              }else{
-                                                  AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                                  builder.setMessage("回答错误，下面请看解析：当张山换完零钱之后，" +
-                                                          "给了顾客75还有价值25元的商品，自己还剩下了25元。这时，" +
-                                                          "李石来找张山要钱，张山把自己剩下的相当于是李石的25元给了李石，" +
-                                                          "另外自己掏了75元。这样张山赔了一个25元的商品和75元的人民币，" +
-                                                          "总共价值100元。");
-                                                  builder.setPositiveButton("确定",null).show();
-                                              }
-                                              break;
-                                          }
-                                      }
-                                  }
-                              }
-
-        );
+//        setContentView(R.layout.b_0005);
+//        bt = (Button)findViewById(R.id.bt);
+//        rg = (RadioGroup)findViewById(R.id.rg);
+//        bt.setOnClickListener(new View.OnClickListener(){
+//                                  @Override
+//                                  public void onClick(View v){
+//                                      for(int i = 0;i<rg.getChildCount();i++){
+//                                          RadioButton radioButton = (RadioButton)rg.getChildAt(i);
+//                                          if(radioButton.isChecked()){
+//                                              if(radioButton.getText().equals("B:100")){
+//                                                  Toast.makeText(MainActivity.this,"回答正确",Toast.LENGTH_LONG).show();
+//                                              }else{
+//                                                  AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                                                  builder.setMessage("回答错误，下面请看解析：当张山换完零钱之后，" +
+//                                                          "给了顾客75还有价值25元的商品，自己还剩下了25元。这时，" +
+//                                                          "李石来找张山要钱，张山把自己剩下的相当于是李石的25元给了李石，" +
+//                                                          "另外自己掏了75元。这样张山赔了一个25元的商品和75元的人民币，" +
+//                                                          "总共价值100元。");
+//                                                  builder.setPositiveButton("确定",null).show();
+//                                              }
+//                                              break;
+//                                          }
+//                                      }
+//                                  }
+//                              }
+//
+//        );
         //---------------end-----------------------
 
+        //---------------start-----------------------
+//        setContentView(R.layout.b_0006);
+//        btn_login = (Button) findViewById(R.id.btn_login);      //通过ID获取布局确认登录按钮
+//        btn_exit = (Button) findViewById(R.id.btn_exit);      //通过ID获取布局确认取消按钮
+//        checkBox1 = (CheckBox) findViewById(R.id.checkbox1);    //通过ID获取布局复选框1
+//        checkBox2 = (CheckBox) findViewById(R.id.checkbox2);    //通过ID获取布局复选框2
+//        checkBox3 = (CheckBox) findViewById(R.id.checkbox3);    //通过ID获取布局复选框3
+//        btn_login.setOnClickListener(new View.OnClickListener() {   //为确认登录按钮
+//            @Override
+//            public void onClick(View v) {
+//                String checked = "";           //保存选中的值
+//                if (checkBox1.isChecked()) { //当第一个复选框被选中
+//                    checked += checkBox1.getText().toString() ;  //输出第一个复选框内信息
+//                }
+//                if (checkBox2.isChecked()) { //当第二个复选框被选中
+//                    checked += checkBox2.getText().toString() ;  //输出第二个复选框内信息
+//                }
+//                if (checkBox3.isChecked()) { //当第三个复选框被选中
+//                    checked += checkBox3.getText().toString() ;  //输出第三个复选框内信息
+//                }
+//                //显示被选中复选框对应的信息
+//                Toast.makeText(MainActivity.this, checked, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        btn_exit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
+        //---------------end-----------------------
+
+        //---------------start-----------------------
+//        setContentView(R.layout.b_0007);
+//        datePicker= (DatePicker) findViewById(R.id.datePicker);    //通过ID获取布局日期选择器
+//        Calendar calendar=Calendar.getInstance();
+//        year=calendar.get(Calendar.YEAR);           //获取当前年
+//        month=calendar.get(Calendar.MONTH)+1;         //获取当前月
+//        day=calendar.get(Calendar.DAY_OF_MONTH);   //获取当前日
+//        //初始化日期选择器，并且在初始化时指定监听器
+//        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+//            @Override
+//            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                MainActivity.this.year=year;            //改变年的参数
+//                MainActivity.this.month=monthOfYear;    //改变月的参数
+//                MainActivity.this.day=dayOfMonth;       //改变日的参数
+//                show(year,monthOfYear,dayOfMonth);       //通过消息框显示日期
+//            }
+//        });
+        //---------------end-----------------------
+
+        //---------------start-----------------------
+//        setContentView(R.layout.b_0008);
+//        timePicker= (TimePicker) findViewById(R.id.timePicker);  //通过ID获取布局时间选择器
+//        timePicker.setIs24HourView(true);                         //设置时间为24小时制
+//        Calendar calendar=Calendar.getInstance();
+//        hour=calendar.get(Calendar.HOUR_OF_DAY);                  //获取当前小时
+//        minute=calendar.get(Calendar.MINUTE);
+//        //为时间选择器设置监听器
+//        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//            @Override
+//            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+//                MainActivity.this.hour=hourOfDay;          //改变小时后的参数
+//                MainActivity.this.minute=minute;           //改变分钟后的参数
+//                show(hourOfDay,minute);                     //通过消息框显示选择的时间
+//            }
+//
+//            private void show(int hourOfDay, int minute) {
+//                String str=hourOfDay+"时"+minute+"分";      //获取选择器设置的时间
+//                Toast.makeText(MainActivity.this,str,Toast.LENGTH_SHORT).show();//显示消息提示框
+//            }
+//        });
+        //---------------end-----------------------
+
+        //---------------start-----------------------
+        setContentView(R.layout.b_0009);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);    //设置全屏显示
+        ch = (Chronometer) findViewById(R.id.ch);   //获取计时器组件
+        ch.setBase(SystemClock.elapsedRealtime());  //设置起始时间
+        ch.setFormat("%s");                         //设置显示时间格式
+        ch.start();                                 //开启计时器
+        //添加监听器
+        ch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                //判断时间计时达到60秒时
+                if (SystemClock.elapsedRealtime() - ch.getBase() >= 60000) {
+                    ch.stop();  //停止计时器
+                }
+
+
+            }
+        });
+        //---------------end-----------------------
+    }
+    private void show(int year, int monthOfYear, int dayOfMonth) {
+        String str=year+"年"+monthOfYear+"月"+dayOfMonth+"日"; //获取选择器设置的日期
+        Toast.makeText(MainActivity.this,str,Toast.LENGTH_SHORT).show(); //将选择的日期显示出来
     }
 }
