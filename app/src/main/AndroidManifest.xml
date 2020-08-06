@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.helloworld">
-
+<!--Android 应用程序的全局描述文件，标明应用的名称、使用图标、Activity和Service等信息-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
